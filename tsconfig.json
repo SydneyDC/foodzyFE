@@ -18,12 +18,18 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+  "module.exports": {
+    "env": {
+      "customKey": "my-value",
+    }
+  },
   "include": [
     "next-env.d.ts",
+    "next.config.js",
     "**/*.ts",
     "**/*.tsx",
     "tailwind.config.js",
-    "postcss.config.js"
+    "postcss.config.js",
   ],
   "exclude": [
     "node_modules"

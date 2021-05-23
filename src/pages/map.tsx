@@ -1,8 +1,11 @@
 import { FC, useState } from 'react';
-import 'tailwindcss/tailwind.css';
 import Cookies from 'js-cookie';
+
+import 'tailwindcss/tailwind.css';
+
 import api from '../utils/api';
 import { Button } from '../components/common/button/Button';
+import Map from '../components/google-map/GoogleMap';
 
 const FoodRecommendationsPage: FC = () => {
    const logout = () => {
@@ -20,9 +23,16 @@ const FoodRecommendationsPage: FC = () => {
 
    return (
       <div>
+         {/* <h1>
+            Foodzy
+            <span role="img" aria-label="fork and knife with plate">
+               🍽
+            </span>
+         </h1> */}
          {/* <Button disabled={isLoading} type="button" onClick={() => handleClick()}>
             Logout
          </Button> */}
+         <Map />
       </div>
    );
 };
