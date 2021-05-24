@@ -46,7 +46,7 @@ const Map: FC = () => {
 
    // use Ref when you want to retain state without causing rerenders
    // VS use State when you want to cause react to rerender when the state updates
-   const mapRef = useRef();
+   const mapRef = useRef(null);
    const onMapLoad = useCallback((map) => {
       mapRef.current = map;
    }, []);
