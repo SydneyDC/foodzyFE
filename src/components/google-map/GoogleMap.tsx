@@ -27,7 +27,14 @@ const options: any = {
    zoomControl: true,
 };
 
-const Map: FC = () => {
+type Props = {
+   handleChangeLatitude: any;
+   handleChangeLongitude: any;
+   restaurantMarkers: any;
+};
+
+const Map: FC<Props> = (props) => {
+   const { handleChangeLatitude, handleChangeLongitude, restaurantMarkers } = props;
    const { isLoaded, loadError } = useLoadScript({
       googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
       libraries,
@@ -82,7 +89,11 @@ const Map: FC = () => {
 
    return (
       <div>
-         <SearchBar panTo={panTo} />
+         <SearchBar
+            panTo={panTo}
+            handleChangeLatitude={handleChangeLatitude}
+            handleChangeLongitude={handleChangeLongitude}
+         />
          <div className="absolute bottom-8 right-16 z-10">
             <Locate panTo={panTo} />
          </div>
@@ -100,6 +111,16 @@ const Map: FC = () => {
                   position={{ lat: marker.lat, lng: marker.lng }}
                   onClick={() => {
                      setSelected(marker);
+                  }}
+               />
+            ))}
+
+            {restaurantMarkers.map((marker) => (
+               <Marker
+                  key={marker.name}
+                  position={{ lat: marker.restaurantLat, lng: marker.restaurantLng }}
+                  onClick={() => {
+                     setSelected({ lat: marker.restaurantLat, lng: marker.restaurantLng });
                   }}
                />
             ))}

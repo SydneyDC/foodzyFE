@@ -20,51 +20,73 @@ const FoodRecommendationsPage: FC = () => {
    //    logout();
    // };
 
-   const [options, setOptions] = useState({ cuisineType: null, distance: null, price: null });
-   console.log(
-      '%coptions :',
-      'background: #444; color: #bada55; padding: 2px; border-radius:2px',
-      options,
-   );
+   const [options, setOptions] = useState({
+      cuisineType: { Belgian: false, Japanese: false, Lebanese: false, Italian: false },
+      distance: 1,
+      price: 1,
+   });
 
-   const handleChangeOptions = (options) => {
-      setOptions(options);
+   const [latitude, setLatitude] = useState(50.827758);
+   const handleChangeLatitude = (lat) => {
+      setLatitude(lat);
    };
 
-   // if (options.cuisineType !== null)
-   const belgianFood =
-      options.cuisineType && options.cuisineType.Belgian ? `categories=belgian` : null;
-   const japaneseFood =
-      options.cuisineType && options.cuisineType.Japanese ? `categories=japanese` : null;
-   const lebaneseFood =
-      options.cuisineType && options.cuisineType.Lebanese ? `categories=lebanese` : null;
-   const italianFood =
-      options.cuisineType && options.cuisineType.Italian ? `categories=italian` : null;
+   const [longitude, setLongitude] = useState(4.372428);
+   const handleChangeLongitude = (lng) => {
+      setLongitude(lng);
+   };
 
-   const latitude = 50.827758;
-   const longitude = 4.372428;
+   const [restaurantMarkers, setRestaurantMarkers] = useState([]);
+   const handleChangeRestaurantMarkers = (data) => {
+      setRestaurantMarkers(data);
+   };
+
+   const belgianFood =
+      options.cuisineType && options.cuisineType.Belgian ? `categories=belgian` : '';
+   const japaneseFood =
+      options.cuisineType && options.cuisineType.Japanese ? `categories=japanese` : '';
+   const lebaneseFood =
+      options.cuisineType && options.cuisineType.Lebanese ? `categories=lebanese` : '';
+   const italianFood =
+      options.cuisineType && options.cuisineType.Italian ? `categories=italian` : '';
+
    const distance = options.distance * 1000;
    const price = options.price;
 
    const getFoodSuggestions = async () => {
       try {
          const resp = await axios.get(
-            `https://api.yelp.com/v3/businesses/search?term=food&latitude=${latitude}&longitude=${longitude}&radius=${distance}&limit=10&price=${price}&${belgianFood}&${japaneseFood}&${lebaneseFood}&${italianFood}&sort_by=best_match`,
+            `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=food&latitude=${latitude}&longitude=${longitude}&radius=${distance}&limit=10&price=${price}&${belgianFood}&${japaneseFood}&${lebaneseFood}&${italianFood}&sort_by=best_match`,
             {
                headers: {
-                  'Access-Control-Allow-Origin': '*',
                   Authorization: `Bearer ${process.env.NEXT_PUBLIC_YELP_API_KEY}`,
                },
             },
          );
-         console.log(resp.data);
+         console.log(resp.data.businesses);
+
+         handleChangeRestaurantMarkers(
+            resp.data.businesses.map((data) => ({
+               name: data.name,
+               restaurantLat: data.coordinates.latitude,
+               restaurantLng: data.coordinates.longitude,
+            })),
+         );
       } catch (err) {
-         // Handle Error Here
          console.error(err);
       }
    };
 
-   getFoodSuggestions();
+   console.log(
+      '%crestaurantMarkers :',
+      'background: #444; color: #bada55; padding: 2px; border-radius:2px',
+      restaurantMarkers,
+   );
+
+   const handleChangeOptions = (options) => {
+      setOptions(options);
+      getFoodSuggestions();
+   };
 
    return (
       <div className="flex flex column">
@@ -74,7 +96,11 @@ const FoodRecommendationsPage: FC = () => {
          <div className="w-1/5">
             <NavBar handleChangeOptions={handleChangeOptions} />
          </div>
-         <Map />
+         <Map
+            handleChangeLatitude={handleChangeLatitude}
+            handleChangeLongitude={handleChangeLongitude}
+            restaurantMarkers={restaurantMarkers}
+         />
       </div>
    );
 };

@@ -9,10 +9,10 @@ import {
 import { FC } from 'react';
 import 'tailwindcss/tailwind.css';
 
-type Props = { panTo: any };
+type Props = { panTo: any; handleChangeLatitude: any; handleChangeLongitude: any };
 
 const SearchBar: FC<Props> = (props) => {
-   const { panTo } = props;
+   const { panTo, handleChangeLongitude, handleChangeLatitude } = props;
 
    const defaultRequestOptions = {
       requestOptions: {
@@ -46,6 +46,8 @@ const SearchBar: FC<Props> = (props) => {
                try {
                   const results = await getGeocode({ address });
                   const { lat, lng } = await getLatLng(results[0]);
+                  handleChangeLatitude(lat);
+                  handleChangeLongitude(lng);
                   panTo({ lat, lng });
                } catch (error) {
                   console.log('error !');
