@@ -53,7 +53,7 @@ const ResponsiveDrawer = (props) => {
    const { window, form } = props;
    const classes = useStyles();
    const theme = useTheme();
-   const [mobileOpen, setMobileOpen] = useState(false);
+   const [mobileOpen, setMobileOpen] = useState(true);
 
    const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
