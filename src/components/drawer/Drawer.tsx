@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
          display: 'none',
       },
    },
-   // necessary for content to be below app bar
    toolbar: theme.mixins.toolbar,
    drawerPaper: {
       width: drawerWidth,
@@ -54,7 +53,7 @@ const ResponsiveDrawer = (props) => {
    const { window, form } = props;
    const classes = useStyles();
    const theme = useTheme();
-   const [mobileOpen, setMobileOpen] = useState(true);
+   const [mobileOpen, setMobileOpen] = useState(false);
 
    const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
