@@ -1,4 +1,4 @@
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng, getDetails } from 'use-places-autocomplete';
 import {
    Combobox,
    ComboboxInput,
@@ -31,6 +31,26 @@ const SearchBar: FC<Props> = (props) => {
          radius: 20 * 1000,
       },
    });
+
+   // Restaurant suggestions
+   // const parameter: any = {
+   //    // Use the "place_id" of suggestion from the dropdown (object), here just taking first suggestion for brevity
+   //    placeId: data,
+   //    // Specify the return data that you want (optional)
+   //    fields: ['name', 'rating'],
+   // };
+
+   // const restaurantSuggestions = () => {
+   //    getDetails(parameter)
+   //       .then((details) => {
+   //          console.log('Details: ', details);
+   //       })
+   //       .catch((error) => {
+   //          console.log('Error: ', error);
+   //       });
+   // };
+
+   // restaurantSuggestions();
 
    return (
       <div className="absolute top-4 left-1/4 z-10 w-1/2">

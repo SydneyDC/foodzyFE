@@ -31,12 +31,13 @@ export const Button = forwardRef<Ref, Props>((props, ref) => {
    } = props;
 
    const baseClasses =
-      'min-h-button inline-flex items-center px-4 py-2 font-sans text-base font-medium leading-6 border rounded-md transition duration-150 ease-in-out';
+      'outline-none min-h-button inline-flex items-center px-4 py-2 font-sans text-base font-medium leading-6 border rounded-md transition duration-150 ease-in-out';
    const primaryClasses =
-      'text-white hover:bg-green-400 bg-green-500 active:bg-green-600 focus:border-green-700 border-transparent focus:outline-none focus:shadow-outline-green';
+      'outline-none text-white hover:bg-green-400 bg-green-500 active:bg-green-600 focus:border-green-700 border-transparent focus:outline-none focus:shadow-outline-green';
    const secondaryClasses =
-      'hover:text-gray-500 text-gray-700 active:text-gray-800 active:bg-gray-50 bg-white border-gray-300 focus:outline-none';
-   const disabledClasses = 'text-gray-500 bg-green-100 border-transparent cursor-not-allowed';
+      'outline-none hover:text-gray-500 text-gray-700 active:text-gray-800 active:bg-gray-50 bg-white border-gray-300 focus:outline-none';
+   const disabledClasses =
+      'outline-none text-gray-500 bg-green-100 border-transparent cursor-not-allowed';
 
    const classes = cx({
       [`${baseClasses}`]: true,

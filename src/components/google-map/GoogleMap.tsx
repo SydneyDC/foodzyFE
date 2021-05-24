@@ -12,7 +12,7 @@ import SearchBar from '../search-bar/SearchBar';
 const libraries: Libraries = ['places'];
 
 const mapContainerStyle = {
-   width: '100vw',
+   width: '80vw',
    height: '100vh',
 };
 

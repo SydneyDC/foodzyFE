@@ -1,8 +1,6 @@
 import { FC, useState } from 'react';
 import Cookies from 'js-cookie';
 
-import 'tailwindcss/tailwind.css';
-
 import api from '../utils/api';
 import { Button } from '../components/common/button/Button';
 import Map from '../components/google-map/GoogleMap';
@@ -23,17 +21,13 @@ const FoodRecommendationsPage: FC = () => {
    };
 
    return (
-      <div>
-         {/* <h1>
-            Foodzy
-            <span role="img" aria-label="fork and knife with plate">
-               🍽
-            </span>
-         </h1> */}
+      <div className="flex flex column">
          {/* <Button disabled={isLoading} type="button" onClick={() => handleClick()}>
             Logout
          </Button> */}
-         <NavBar />
+         <div className="w-1/5">
+            <NavBar />
+         </div>
          <Map />
       </div>
    );

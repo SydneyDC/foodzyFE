@@ -1,19 +1,9 @@
 /* eslint-disable no-use-before-define */
 import React, { FC, useState } from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, makeStyles } from '@material-ui/core';
-import Drawer from '../drawer/Drawer';
 import Checkbox from '../checkbox/Checkbox';
 import { Button } from '../common/button/Button';
 
 const NavBar: FC = () => {
-   const useStyles = makeStyles(() => ({
-      formControl: {
-         width: '100%',
-      },
-   }));
-
-   const classes = useStyles();
-
    const priceRange = [
       { returnValue: '< 10€', label: '< 10€' },
       { returnValue: '10€ - 20€', label: '10€ - 20€' },
@@ -56,56 +46,68 @@ const NavBar: FC = () => {
 
    const form: any = (
       <>
-         <Box padding={4}>
-            <Box marginBottom={3} marginTop={3}>
-               <FormControl className={classes.formControl}>
-                  <InputLabel id="price">Choose a price range</InputLabel>
-                  <Select labelId="price" id="price" value={price} onChange={handlePriceChange}>
-                     {priceRange.map((price) => {
-                        return (
-                           <MenuItem key={price.returnValue} value={price.returnValue}>
-                              {price.label}
-                           </MenuItem>
-                        );
-                     })}
-                  </Select>
-               </FormControl>
-               <Box marginBottom={3} marginTop={3}>
-                  <FormControl className={classes.formControl}>
-                     <InputLabel id="price">Choose a maximum distance</InputLabel>
-                     <Select
-                        labelId="price"
-                        id="price"
-                        value={distance}
-                        onChange={handleDistanceChange}
-                     >
-                        {distanceRange.map((distance) => {
-                           return (
-                              <MenuItem key={distance.returnValue} value={distance.returnValue}>
-                                 {distance.label}
-                              </MenuItem>
-                           );
-                        })}
-                     </Select>
-                  </FormControl>
-               </Box>
-               <Checkbox
-                  cuisineType={cuisineType}
-                  handleCuisineTypeChange={handleCuisineTypeChange}
-               />
-               <Box marginBottom={3} marginTop={3}>
+         <div>
+            <div className="ml-2 mr-2">
+               <div className="mt-5 mb-5">
+                  <form>
+                     <p className="mb-3 mt-3 block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                        Price range
+                     </p>
+                     <div className="flex justify-center">
+                        <select
+                           className="w-4/5 outline-none block align-center appearance-none border border-green-500 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                           id="price"
+                           value={price}
+                           onChange={handlePriceChange}
+                        >
+                           <option>Select price</option>
+                           {priceRange.map((price) => {
+                              return (
+                                 <option key={price.returnValue} value={price.returnValue}>
+                                    {price.label}
+                                 </option>
+                              );
+                           })}
+                        </select>
+                     </div>
+                  </form>
+               </div>
+               <div>
+                  <div className="mt-5 mb-5">
+                     <form>
+                        <p className="mt-3 mb-3 block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                           Distance radius
+                        </p>
+                        <div className="flex justify-center">
+                           <select
+                              className="w-4/5 outline-none block appearance-none border border-green-500 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="distance"
+                              value={distance}
+                              onChange={handleDistanceChange}
+                           >
+                              <option>Select distance</option>
+                              {distanceRange.map((distance) => {
+                                 return (
+                                    <option key={distance.returnValue} value={distance.returnValue}>
+                                       {distance.label}
+                                    </option>
+                                 );
+                              })}
+                           </select>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+               <Checkbox handleCuisineTypeChange={handleCuisineTypeChange} />
+               <div className="flex justify-center">
                   <Button onClick={handleSubmit}>Search for lunch places !</Button>
-               </Box>
-            </Box>
-         </Box>
+               </div>
+            </div>
+         </div>
       </>
    );
 
-   return (
-      <>
-         <Drawer form={form} />
-      </>
-   );
+   return <>{form}</>;
 };
 
 export default NavBar;
