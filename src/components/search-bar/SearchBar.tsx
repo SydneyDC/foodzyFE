@@ -25,7 +25,7 @@ const SearchBar: FC = (props) => {
    });
 
    return (
-      <div className="absolute top-4 left-1/2 z-10">
+      <div className="absolute top-4 left-1/4 z-10 w-1/2">
          <Combobox
             onSelect={async (address) => {
                setValue(address, false);
@@ -41,6 +41,7 @@ const SearchBar: FC = (props) => {
             }}
          >
             <ComboboxInput
+               className="w-full"
                value={value}
                onChange={(event) => {
                   setValue(event.target.value);

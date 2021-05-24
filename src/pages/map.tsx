@@ -6,6 +6,7 @@ import 'tailwindcss/tailwind.css';
 import api from '../utils/api';
 import { Button } from '../components/common/button/Button';
 import Map from '../components/google-map/GoogleMap';
+import NavBar from '../components/navbar/Navbar';
 
 const FoodRecommendationsPage: FC = () => {
    const logout = () => {
@@ -32,6 +33,7 @@ const FoodRecommendationsPage: FC = () => {
          {/* <Button disabled={isLoading} type="button" onClick={() => handleClick()}>
             Logout
          </Button> */}
+         <NavBar />
          <Map />
       </div>
    );

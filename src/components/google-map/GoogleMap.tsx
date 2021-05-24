@@ -1,7 +1,10 @@
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
-import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url';
 import React, { FC, useState, useCallback, useRef } from 'react';
+import { Libraries } from '@react-google-maps/api/dist/utils/make-load-script-url';
+import MyLocationOutlinedIcon from '@material-ui/icons/MyLocationOutlined';
+
 import mapStyles from '../../styles/mapstyles';
+
 import { Button } from '../common/button/Button';
 import SearchBar from '../search-bar/SearchBar';
 
@@ -63,7 +66,11 @@ const Map: FC = () => {
    };
 
    const Locate = () => {
-      return <Button onClick={getCurrentLocation}>My position</Button>;
+      return (
+         <Button onClick={getCurrentLocation}>
+            <MyLocationOutlinedIcon />
+         </Button>
+      );
    };
 
    if (loadError) return <div>'Error loading maps'</div>;
