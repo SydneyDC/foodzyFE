@@ -6,8 +6,6 @@ import axios from 'axios';
 import Map from '../components/google-map/GoogleMap';
 import NavBar from '../components/navbar/Navbar';
 
-export const url = `?term=food&latitude=${latitude}&longitude=${longitude}&radius=${distance}&limit=10&price=${price}&${belgianFood}&${japaneseFood}&${lebaneseFood}&${italianFood}&sort_by=best_match`;
-
 const FoodRecommendationsPage: FC = () => {
    // const logout = () => {
    //    Cookies.remove('token');
@@ -51,7 +49,7 @@ const FoodRecommendationsPage: FC = () => {
    const getFoodSuggestions = async () => {
       try {
          const resp = await axios.get(
-            `?term=food&latitude=${latitude}&longitude=${longitude}&radius=${distance}&limit=10&price=${price}&${belgianFood}&${japaneseFood}&${lebaneseFood}&${italianFood}&sort_by=best_match`,
+            `https://api.yelp.com/v3/businesses/search?term=food&latitude=${latitude}&longitude=${longitude}&radius=${distance}&limit=10&price=${price}&${belgianFood}&${japaneseFood}&${lebaneseFood}&${italianFood}&sort_by=best_match`,
             {
                headers: {
                   'Access-Control-Allow-Origin': '*',
