@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, FormLabel, FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
 // import FormHelperText from '@material-ui/core/FormHelperText';
@@ -10,20 +10,16 @@ const useStyles = makeStyles(() => ({
    },
 }));
 
-const CheckboxesGroup: FC = () => {
+type Props = {
+   cuisineType: any;
+   handleCuisineTypeChange: any;
+};
+
+const CheckboxesGroup: FC<Props> = (props) => {
+   const { cuisineType, handleCuisineTypeChange } = props;
    const classes = useStyles();
-   const [state, setState] = useState({
-      Italian: false,
-      Lebanese: false,
-      Japanese: false,
-      Belgian: false,
-   });
 
-   const handleChange = (event) => {
-      setState({ ...state, [event.target.name]: event.target.checked });
-   };
-
-   const { Italian, Lebanese, Japanese, Belgian } = state;
+   const { Italian, Lebanese, Japanese, Belgian } = cuisineType;
 
    return (
       <div className={classes.root}>
@@ -33,19 +29,43 @@ const CheckboxesGroup: FC = () => {
             </Box>
             <FormGroup>
                <FormControlLabel
-                  control={<Checkbox checked={Italian} onChange={handleChange} name="Italian" />}
+                  control={
+                     <Checkbox
+                        checked={Italian}
+                        onChange={handleCuisineTypeChange}
+                        name="Italian"
+                     />
+                  }
                   label="Italian"
                />
                <FormControlLabel
-                  control={<Checkbox checked={Lebanese} onChange={handleChange} name="Lebanese" />}
+                  control={
+                     <Checkbox
+                        checked={Lebanese}
+                        onChange={handleCuisineTypeChange}
+                        name="Lebanese"
+                     />
+                  }
                   label="Lebanese"
                />
                <FormControlLabel
-                  control={<Checkbox checked={Japanese} onChange={handleChange} name="Japanese" />}
+                  control={
+                     <Checkbox
+                        checked={Japanese}
+                        onChange={handleCuisineTypeChange}
+                        name="Japanese"
+                     />
+                  }
                   label="Japanese"
                />
                <FormControlLabel
-                  control={<Checkbox checked={Belgian} onChange={handleChange} name="Belgian" />}
+                  control={
+                     <Checkbox
+                        checked={Belgian}
+                        onChange={handleCuisineTypeChange}
+                        name="Belgian"
+                     />
+                  }
                   label="Belgian"
                />
             </FormGroup>

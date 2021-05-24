@@ -1,25 +1,12 @@
 /* eslint-disable no-use-before-define */
 import React, { FC, useState } from 'react';
-import {
-   Box,
-   FormControl,
-   InputLabel,
-   MenuItem,
-   Select,
-   FormLabel,
-   FormGroup,
-   FormControlLabel,
-   makeStyles,
-} from '@material-ui/core';
+import { Box, FormControl, InputLabel, MenuItem, Select, makeStyles } from '@material-ui/core';
 import Drawer from '../drawer/Drawer';
 import Checkbox from '../checkbox/Checkbox';
 import { Button } from '../common/button/Button';
 
 const NavBar: FC = () => {
    const useStyles = makeStyles(() => ({
-      root: {
-         display: 'flex',
-      },
       formControl: {
          width: '100%',
       },
@@ -41,15 +28,6 @@ const NavBar: FC = () => {
       { returnValue: '> 5km', label: '> 5km' },
    ];
 
-   const [cuisineType, setCuisineType] = useState({
-      Italian: false,
-      Lebanese: false,
-      Japanese: false,
-      Belgian: false,
-   });
-
-   const { Italian, Lebanese, Japanese, Belgian } = cuisineType;
-
    const [price, setPrice] = useState('');
    const [distance, setDistance] = useState('');
 
@@ -61,15 +39,22 @@ const NavBar: FC = () => {
       setDistance(event.target.value);
    };
 
+   const handleSubmit = () => {
+      console.log({ price, distance, cuisineType });
+   };
+
+   const [cuisineType, setCuisineType] = useState({
+      Italian: false,
+      Lebanese: false,
+      Japanese: false,
+      Belgian: false,
+   });
+
    const handleCuisineTypeChange = (event) => {
       setCuisineType({ ...cuisineType, [event.target.name]: event.target.checked });
    };
 
-   const handleSubmit = () => {
-      console.log('submitting stuff');
-   };
-
-   const form = (
+   const form: any = (
       <>
          <Box padding={4}>
             <Box marginBottom={3} marginTop={3}>
@@ -104,6 +89,10 @@ const NavBar: FC = () => {
                      </Select>
                   </FormControl>
                </Box>
+               <Checkbox
+                  cuisineType={cuisineType}
+                  handleCuisineTypeChange={handleCuisineTypeChange}
+               />
                <Box marginBottom={3} marginTop={3}>
                   <Button onClick={handleSubmit}>Search for lunch places !</Button>
                </Box>

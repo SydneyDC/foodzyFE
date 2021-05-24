@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -50,30 +50,15 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const ResponsiveDrawer: FC = (props) => {
+const ResponsiveDrawer = (props) => {
    const { window, form } = props;
    const classes = useStyles();
    const theme = useTheme();
-   const [mobileOpen, setMobileOpen] = useState(false);
+   const [mobileOpen, setMobileOpen] = useState(true);
 
    const handleDrawerToggle = () => {
       setMobileOpen(!mobileOpen);
    };
-
-   //    const drawer = (
-   //       <div>
-   //          <div className={classes.toolbar} />
-   //          <Divider />
-   //          <List>
-   //             <ListItem button>
-   //                <ListItemIcon>
-   //                   <InboxIcon />
-   //                </ListItemIcon>
-   //                <ListItemText primary="Yolo" />
-   //             </ListItem>
-   //          </List>
-   //       </div>
-   //    );
 
    const container = window !== undefined ? () => window().document.body : undefined;
 
