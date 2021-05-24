@@ -53,6 +53,11 @@ const FoodRecommendationsPage: FC = () => {
    const distance = options.distance * 1000;
    const price = options.price;
 
+   const handleChangeOptions = (options) => {
+      setOptions(options);
+      getFoodSuggestions();
+   };
+
    const getFoodSuggestions = async () => {
       try {
          const resp = await axios.get(
@@ -75,17 +80,6 @@ const FoodRecommendationsPage: FC = () => {
       } catch (err) {
          console.error(err);
       }
-   };
-
-   console.log(
-      '%crestaurantMarkers :',
-      'background: #444; color: #bada55; padding: 2px; border-radius:2px',
-      restaurantMarkers,
-   );
-
-   const handleChangeOptions = (options) => {
-      setOptions(options);
-      getFoodSuggestions();
    };
 
    return (

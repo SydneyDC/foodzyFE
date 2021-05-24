@@ -41,7 +41,7 @@ const Map: FC<Props> = (props) => {
    });
 
    const [markers, setMarkers] = useState([]);
-   const [selected, setSelected] = useState(null);
+   const [selected, setSelected] = useState({ markerCoords: { lat: null, lng: null }, name: '' });
 
    // useCallback is used anytime you want to use a function that shouldn't change/will always retain the same value unless the properties passed in the "deps" array (at the end) change.
    const onMapClick = useCallback((event) => {
@@ -110,7 +110,10 @@ const Map: FC<Props> = (props) => {
                   key={marker.time.toISOString()}
                   position={{ lat: marker.lat, lng: marker.lng }}
                   onClick={() => {
-                     setSelected(marker);
+                     setSelected({
+                        markerCoords: { lat: marker.lat, lng: marker.lng },
+                        name: marker.name,
+                     });
                   }}
                />
             ))}
@@ -120,19 +123,21 @@ const Map: FC<Props> = (props) => {
                   key={marker.name}
                   position={{ lat: marker.restaurantLat, lng: marker.restaurantLng }}
                   onClick={() => {
-                     setSelected({ lat: marker.restaurantLat, lng: marker.restaurantLng });
+                     setSelected({
+                        markerCoords: { lat: marker.restaurantLat, lng: marker.restaurantLng },
+                        name: marker.name,
+                     });
                   }}
                />
             ))}
 
-            {selected ? (
+            {selected && selected.markerCoords.lat && selected.markerCoords.lng && selected.name ? (
                <InfoWindow
-                  position={{ lat: selected.lat, lng: selected.lng }}
+                  position={{ lat: selected.markerCoords.lat, lng: selected.markerCoords.lng }}
                   onCloseClick={() => setSelected(null)}
                >
                   <div>
-                     <h2>Marker Addres</h2>
-                     <p>Restaurant Type</p>
+                     <p>{selected.name}</p>
                   </div>
                </InfoWindow>
             ) : null}
