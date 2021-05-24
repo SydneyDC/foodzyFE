@@ -1,4 +1,4 @@
-import usePlacesAutocomplete, { getGeocode, getLatLng, getDetails } from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import {
    Combobox,
    ComboboxInput,
@@ -13,13 +13,8 @@ type Props = { panTo: any };
 
 const SearchBar: FC<Props> = (props) => {
    const { panTo } = props;
-   const {
-      ready,
-      value,
-      suggestions: { status, data },
-      setValue,
-      clearSuggestions,
-   } = usePlacesAutocomplete({
+
+   const defaultRequestOptions = {
       requestOptions: {
          location: {
             lat: () => 50.827758,
@@ -29,31 +24,20 @@ const SearchBar: FC<Props> = (props) => {
             toUrlValue: () => null,
          },
          radius: 20 * 1000,
+         debounce: 200,
       },
-   });
+   };
 
-   // Restaurant suggestions
-   // const parameter: any = {
-   //    // Use the "place_id" of suggestion from the dropdown (object), here just taking first suggestion for brevity
-   //    placeId: data,
-   //    // Specify the return data that you want (optional)
-   //    fields: ['name', 'rating'],
-   // };
-
-   // const restaurantSuggestions = () => {
-   //    getDetails(parameter)
-   //       .then((details) => {
-   //          console.log('Details: ', details);
-   //       })
-   //       .catch((error) => {
-   //          console.log('Error: ', error);
-   //       });
-   // };
-
-   // restaurantSuggestions();
+   const {
+      ready,
+      value,
+      suggestions: { status, data },
+      setValue,
+      clearSuggestions,
+   } = usePlacesAutocomplete(defaultRequestOptions);
 
    return (
-      <div className="absolute top-4 left-1/4 z-10 w-1/2">
+      <div className="absolute top-5 left-1/4 z-10 w-2/5 ">
          <Combobox
             onSelect={async (address) => {
                setValue(address, false);
@@ -69,7 +53,7 @@ const SearchBar: FC<Props> = (props) => {
             }}
          >
             <ComboboxInput
-               className="w-full"
+               className="w-full p-2 rounded-md"
                value={value}
                onChange={(event) => {
                   setValue(event.target.value);
@@ -77,11 +61,15 @@ const SearchBar: FC<Props> = (props) => {
                disabled={!ready}
                placeholder="Enter an address"
             />
-            <ComboboxPopover>
-               <ComboboxList>
+            <ComboboxPopover className="bg-white rounded-md">
+               <ComboboxList className="rounded-md">
                   {status === 'OK' &&
                      data.map(({ id, description }) => (
-                        <ComboboxOption key={id} value={description} />
+                        <ComboboxOption
+                           key={id}
+                           className="mt-2 mb-2 hover:bg-green-300 hover:border-green-500 pl-2 pt-2 pb-2 rounded-md"
+                           value={description}
+                        />
                      ))}
                </ComboboxList>
             </ComboboxPopover>

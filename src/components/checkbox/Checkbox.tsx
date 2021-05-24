@@ -23,9 +23,8 @@ const CheckboxesGroup: FC<Props> = (props) => {
             <form>
                {cuisineTypes.map((cuisineType) => {
                   return (
-                     <div className="mt-3">
+                     <div className="mt-3" key={cuisineType.id}>
                         <input
-                           key={cuisineType.id}
                            id={cuisineType.id}
                            type="checkbox"
                            value={cuisineType.type}
