@@ -21,7 +21,7 @@ const center = {
    lng: 4.372428,
 };
 
-const options = {
+const options: any = {
    styles: mapStyles,
    disableDefaultUI: true,
    zoomControl: true,
@@ -56,16 +56,20 @@ const Map: FC = () => {
       mapRef.current.setZoom(16);
    }, []);
 
-   const getCurrentLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-         (position) => {
-            panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
-         },
-         () => null,
-      );
-   };
+   type Props = { panTo: any };
 
-   const Locate = () => {
+   const Locate: FC<Props> = (props) => {
+      const { panTo } = props;
+
+      const getCurrentLocation = () => {
+         navigator.geolocation.getCurrentPosition(
+            (position) => {
+               panTo({ lat: position.coords.latitude, lng: position.coords.longitude });
+            },
+            () => null,
+         );
+      };
+
       return (
          <Button onClick={getCurrentLocation}>
             <MyLocationOutlinedIcon />

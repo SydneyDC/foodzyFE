@@ -9,7 +9,9 @@ import {
 import { FC } from 'react';
 import 'tailwindcss/tailwind.css';
 
-const SearchBar: FC = (props) => {
+type Props = { panTo: any };
+
+const SearchBar: FC<Props> = (props) => {
    const { panTo } = props;
    const {
       ready,
@@ -19,8 +21,14 @@ const SearchBar: FC = (props) => {
       clearSuggestions,
    } = usePlacesAutocomplete({
       requestOptions: {
-         location: { lat: () => 50.827758, lng: () => 4.372428 },
-         radius: 5 * 1000,
+         location: {
+            lat: () => 50.827758,
+            lng: () => 4.372428,
+            equals: () => null,
+            toJSON: () => null,
+            toUrlValue: () => null,
+         },
+         radius: 20 * 1000,
       },
    });
 
